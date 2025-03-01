@@ -96,7 +96,6 @@ for ($i=0; $i -lt 4; $i++) {
 }
 
 # Clear command history
-Clear-Content (Get-PSReadlineOption).HistorySavePath
 
 # Eliminar la última entrada del historial de "Ejecutar" en el Registro de Windows
 $runKeyPath = "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\RunMRU"
